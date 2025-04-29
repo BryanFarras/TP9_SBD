@@ -33,7 +33,7 @@ const Album = [
     title: 'Kembali',
     releaseDate: '2024-09-29',
     description:
-      'Kembali is a musical return — to roots, to memories, to a home that waits patiently.',
+      'Kembali bagi para wisudawan Departemen Teknik Elektro, dan kembali bagi Mahasiswa baru Departemen Teknik Elektro.',
     audio: '/assets/audio/kembali.mp3',
   },
 ];
