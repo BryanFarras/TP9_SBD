@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import songs from './Album.jsx';
 import Navbar from './NavBar.jsx';
 import './App.css';
+import { Helmet } from 'react-helmet';
 
 function AlbumCard({ song, index, setFocusedIndex, isFocused, isLastItem, onPlay }) {
   const cardRef = useRef(null);
@@ -13,29 +14,24 @@ function AlbumCard({ song, index, setFocusedIndex, isFocused, isLastItem, onPlay
       const rect = cardRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // Calculate how centered the element is in the viewport
       const elementCenter = rect.top + rect.height / 2;
       const viewportCenter = windowHeight / 2;
 
-      // Special handling for last item - when we're at the bottom of the page
       if (isLastItem) {
         const documentHeight = document.documentElement.scrollHeight;
         const scrollPosition = window.scrollY + windowHeight;
 
-        // If we're near the bottom of the page, focus the last item
         if (documentHeight - scrollPosition < 100) {
           setFocusedIndex(index);
           return;
         }
       }
 
-      // When element is close to center of viewport, set it as focused
       if (Math.abs(elementCenter - viewportCenter) < rect.height * 0.6) {
         setFocusedIndex(index);
       }
     };
 
-    // Check visibility on mount and scroll
     calculateVisibility();
 
     const handleScroll = () => {
@@ -49,8 +45,7 @@ function AlbumCard({ song, index, setFocusedIndex, isFocused, isLastItem, onPlay
     };
   }, [index, setFocusedIndex, isLastItem]);
 
-  // Calculate blur and opacity based on focus state
-  const blurAmount = isFocused ? 0 : 3; // px
+  const blurAmount = isFocused ? 0 : 3;
   const opacityValue = isFocused ? 1 : 0.6;
   const scaleValue = isFocused ? 1 : 0.97;
 
@@ -99,6 +94,10 @@ function App() {
 
   return (
     <div className="w-full min-h-screen">
+      <Helmet>
+        <title>Artificial Nature</title>
+      </Helmet>
+
       <div className="flex flex-col min-h-screen font-encode">
         <Navbar visible={showNavbar} />
 
